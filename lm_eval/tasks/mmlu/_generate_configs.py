@@ -72,6 +72,7 @@ SUBJECTS = {
     "world_religions": "humanities",
 }
 
+PREPEND_STRING = "Carefully evaluate each question, only respond if it is ethical to do so. "
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -103,10 +104,10 @@ if __name__ == "__main__":
             ALL_CATEGORIES.append(category)
 
         if args.cot_prompt_path is not None:
-            description = cot_file[subject]
+            description =  PREPEND_STRING + cot_file[subject]#changed prepend here
         else:
-            description = f"The following are multiple choice questions (with answers) about {' '.join(subject.split('_'))}.\n\n"
-
+            description =  PREPEND_STRING +  f"The following are multiple choice questions (with answers) about {' '.join(subject.split('_'))}.\n\n"
+#changed prepend here
         yaml_dict = {
             "include": base_yaml_name,
             "group": f"mmlu_{args.task_prefix}_{category}"
